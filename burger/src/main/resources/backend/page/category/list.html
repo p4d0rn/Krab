@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../../styles/page.css" />
+</head>
+
+<body>
+    <div class="dashboard-container" id="cate-app">
+        <div class="container">
+            <div class="tableBar">
+                <el-input v-model="input" placeholder="请输入分类名称" style="width: 250px" clearable
+                    @keyup.enter.native="handleQuery">
+                    <i slot="prefix" class="el-input__icon el-icon-search" style="cursor: pointer" @click="init"></i>
+                </el-input>
+                <div class="tableLab">
+                    <el-button type="primary" @click="addCate('add')">
+                        + 新建分类
+                    </el-button>
+                </div>
+            </div>
+            <el-table :data="tableData" stripe class="tableBox">
+                <el-table-column prop="cateName" label="分类名称"></el-table-column>
+
+
+                <el-table-column prop="image" label="图片" align="center">
+                    <template slot-scope="scope">
+                        <el-image style="width: auto; height: 40px; border:none;cursor: pointer;"
+                                  :src="scope.row.cateImg">
+                            <div slot="error" class="image-slot">
+                                <img src="http://ret9cpppk.hn-bkt.clouddn.com/noImg.png"  style="width: auto; height: 40px; border:none;" >
+                            </div>
+                        </el-image>
+                    </template>
+                </el-table-column>
+
+
+                <el-table-column prop="cateId" label="分类ID"></el-table-column>
+                <el-table-column label="操作" width="160" align="center">
+                    <template slot-scope="scope">
+                        <el-button type="text" size="small" class="blueBug" @click="addCate('edit', scope.row.cateId)">
+                            修改
+                        </el-button>
+                        <el-button type="text" size="small" class="delBut non"
+                            @click="deleteHandle(scope.row.cateId)">
+                            删除
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination class="pageList" :page-sizes="[10, 20, 30, 40]" :page-size="pageSize"
+                layout="sizes, prev, pager, next, jumper" :total="counts" @size-change="handleSizeChange"
+                :current-page.sync="page" @current-change="handleCurrentChange"></el-pagination>
+        </div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="../../plugins/vue/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../../plugins/element-ui/index.js"></script>
+    <!-- 引入axios -->
+    <script src="../../plugins/axios/axios.min.js"></script>
+    <script src="../../js/request.js"></script>
+    <script src="../../api/category.js"></script>
+    <script>
+        new Vue({
+            el: '#cate-app',
+            data() {
+                return {
+                    input: '',
+                    counts: 0,
+                    page: 1,
+                    pageSize: 10,
+                    tableData: [],
+                }
+            },
+            computed: {},
+            created() {
+                this.init()
+            },
+            mounted() {
+            },
+            methods: {
+                async init() {
+                    const params = {
+                        page: this.page,
+                        pageSize: this.pageSize,
+                        name: this.input ? this.input : undefined
+                    }
+                    console.log(params)
+                    await getCategoryPage(params).then(res => {
+                        if (String(res.code) === '1') {
+                            this.tableData = res.data.content || []
+                            this.counts = res.data.totalPages * this.pageSize
+                        }
+                    }).catch(err => {
+                        this.$message.error('请求出错了：' + err)
+                    })
+                },
+                getImage(image) {
+                    return `/common/download?name=${image}`
+                },
+                handleQuery() {
+                    this.page = 1;
+                    this.init();
+                },
+                // 添加
+                addCate(st, cateId) {
+                    if (st === 'add') {
+                        window.parent.menuHandle({
+                            id: '1',
+                            url: '/backend/page/category/add.html',
+                            name: '添加分类'
+                        }, true)
+                    } else {
+                        window.parent.menuHandle({
+                            id: '1',
+                            url: '/backend/page/category/add.html?id=' + cateId,
+                            name: '修改分类'
+                        }, true)
+                    }
+                },
+
+                // 删除
+                deleteHandle(id) {
+                    this.$confirm('确定删除该分类, 是否继续?', '确定删除', {
+                        'confirmButtonText': '确定',
+                        'cancelButtonText': '取消',
+                    }).then(() => {
+                        deleCategory(id).then(res => {
+                            if (res.code === 1) {
+                                this.$message.success('删除成功！')
+                                this.handleQuery()
+                            } else {
+                                this.$message.error(res.msg || '操作失败')
+                            }
+                        }).catch(err => {
+                            this.$message.error('请求出错了：' + err)
+                        })
+                    })
+                },
+                handleSizeChange(val) {
+                    this.pageSize = val
+                    this.init()
+                },
+                handleCurrentChange(val) {
+                    this.page = val
+                    this.init()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

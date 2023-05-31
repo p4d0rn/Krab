@@ -1,0 +1,1 @@
+<block wx:if="{{visible}}"><view class="tui-nomore-class tui-loadmore-none data-v-cebf08f8"><view class="{{['data-v-cebf08f8',(isDot)?'tui-nomore-dot':'',(!isDot)?'tui-nomore':'',(!line)?'tui-nomore-noline':'']}}"><view class="{{['data-v-cebf08f8',isDot?'tui-dot-text':'tui-nomore-text']}}" style="{{'background:'+(bgcolor)+';'}}">{{isDot?dotText:text}}</view></view></view></block>

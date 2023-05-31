@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "list-cell": "/components/list-cell/list-cell"
+  }
+}

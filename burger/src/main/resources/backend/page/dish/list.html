@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../plugins/element-ui/index.css"/>
+    <link rel="stylesheet" href="../../styles/common.css"/>
+    <link rel="stylesheet" href="../../styles/page.css"/>
+</head>
+<body>
+<div class="dashboard-container" id="food-app">
+    <div class="container">
+        <div class="tableBar">
+            <el-input
+                    v-model="input"
+                    placeholder="请输入菜品名称"
+                    style="width: 250px"
+                    clearable
+                    @keyup.enter.native="handleQuery"
+            >
+                <i
+                        slot="prefix"
+                        class="el-input__icon el-icon-search"
+                        style="cursor: pointer"
+                        @click="init"
+                ></i>
+            </el-input>
+            <div class="tableLab">
+                <span class="span-btn delBut non" @click="deleteHandle('批量', null)">批量删除</span>
+                <el-button
+                        type="primary"
+                        @click="addDish('add')"
+                >
+                    + 新建菜品
+                </el-button>
+            </div>
+        </div>
+        <el-table
+                :data="tableData"
+                stripe
+                class="tableBox"
+                @selection-change="handleSelectionChange"
+        >
+            <el-table-column
+                    type="selection"
+                    width="25"
+            ></el-table-column>
+            <el-table-column
+                    prop="dishName"
+                    label="菜品名称"
+            ></el-table-column>
+            <el-table-column
+                    prop="cateName"
+                    label="菜品分类"
+            ></el-table-column>
+            <el-table-column prop="dishImg" label="图片" align="center">
+                <template slot-scope="scope">
+                    <el-image style="width: auto; height: 40px; border:none;cursor: pointer;"
+                              :src="scope.row.dishImg">
+                        <div slot="error" class="image-slot">
+                            <img src="http://rv74erb7l.bkt.clouddn.com/noImg.png"
+                                 style="width: auto; height: 40px; border:none;">
+                        </div>
+                    </el-image>
+                </template>
+            </el-table-column>
+            <el-table-column label="售价" prop="dishPrice">
+                <template slot-scope="scope">
+                    <span style="margin-right: 10px;">￥{{ scope.row.dishPrice }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="sales"
+                    label="销量"
+            ></el-table-column>
+            <el-table-column label="售卖状态" prop="dishStatus">
+                <template slot-scope="scope" >
+                    <span style="margin-right: 10px;">{{ scope.row.dishStatus == '0' ? '停售' : '启售' }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    width="160"
+                    align="center"
+            >
+                <template slot-scope="scope">
+                    <el-button
+                            type="text"
+                            size="small"
+                            class="blueBug"
+                            @click="addDish(scope.row.dishId)"
+                    >
+                        修改
+                    </el-button>
+                    <el-button
+                            type="text"
+                            size="small"
+                            class="delBut non"
+                            @click="deleteHandle('单删', scope.row.dishId)"
+                    >
+                        删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                class="pageList"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="pageSize"
+                layout="sizes, prev, pager, next, jumper"
+                :total="counts"
+                @size-change="handleSizeChange"
+                :current-page.sync="page"
+                @current-change="handleCurrentChange"
+        ></el-pagination>
+    </div>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../../plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../../plugins/element-ui/index.js"></script>
+<!-- 引入axios -->
+<script src="../../plugins/axios/axios.min.js"></script>
+<script src="../../js/request.js"></script>
+<script src="../../api/food.js"></script>
+<script>
+    new Vue({
+        el: '#food-app',
+        data() {
+            return {
+                input: '',
+                counts: 0,
+                page: 1,
+                pageSize: 10,
+                tableData: [],
+                dishState: '',
+                checkList: []
+            }
+        },
+        computed: {},
+        created() {
+            this.init();
+        },
+        mounted() {
+        },
+        methods: {
+            async init() {
+                const params = {
+                    page: this.page,
+                    pageSize: this.pageSize,
+                    name: this.input ? this.input : undefined
+                }
+                await getDishPage(params).then(res => {
+                    if (String(res.code) === '1') {
+                        this.tableData = res.data.content || []
+                        this.counts = res.data.totalPages * this.pageSize
+                    }
+                }).catch(err => {
+                    this.$message.error('请求出错了：' + err)
+                })
+            },
+            getImage(image) {
+                return `/common/download?name=${image}`
+            },
+            handleQuery() {
+                this.page = 1;
+                this.init();
+            },
+            // 添加
+            addDish(st) {
+                if (st === 'add') {
+                    window.parent.menuHandle({
+                        id: '3',
+                        url: '/backend/page/dish/add.html',
+                        name: '添加菜品'
+                    }, true)
+                } else {
+                    window.parent.menuHandle({
+                        id: '3',
+                        url: '/backend/page/dish/add.html?id=' + st,
+                        name: '修改菜品'
+                    }, true)
+                }
+            },
+
+            // 删除
+            deleteHandle(type, id) {
+                if (type === '批量' && id === null) {
+                    if (this.checkList.length === 0) {
+                        return this.$message.error('请选择删除对象')
+                    }
+                }
+                this.$confirm('确认删除该菜品, 是否继续?', '确定删除', {
+                    'confirmButtonText': '确定',
+                    'cancelButtonText': '取消',
+                }).then(() => {
+                    console.log(this.checkList, id)
+                    deleteDish(type === '批量' ? this.checkList : id).then(res => {
+                        if (res.code === 1) {
+                            this.$message.success('删除成功！')
+                            this.handleQuery()
+                        } else {
+                            this.$message.error(res.msg || '操作失败')
+                        }
+                    }).catch(err => {
+                        this.$message.error('请求出错了：' + err)
+                    })
+                })
+            },
+
+            // 全部操作
+            handleSelectionChange(val) {
+                let checkArr = []
+                val.forEach((n) => {
+                    checkArr.push(n.dishId)
+                })
+                this.checkList = checkArr
+                console.log(this.checkList)
+            },
+            handleSizeChange(val) {
+                this.pageSize = val
+                this.init()
+            },
+            handleCurrentChange(val) {
+                this.page = val
+                this.init()
+            }
+        }
+    })
+</script>
+</body>
+</html>

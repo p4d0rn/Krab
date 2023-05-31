@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "modal": "/components/modal/modal",
+    "actions": "/pages/index/components/actions/actions"
+  }
+}

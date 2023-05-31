@@ -1,0 +1,1 @@
+select password from admin where username=<@p name="name"/>

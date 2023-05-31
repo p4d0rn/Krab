@@ -1,0 +1,144 @@
+@charset "UTF-8";
+/**
+ * 这里是app内置的常用样式变量
+ *
+ * app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.header.data-v-7c489a6c {
+  padding: 20rpx 30rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 11;
+}
+.header image.data-v-7c489a6c {
+  width: 60rpx;
+  height: 60rpx;
+}
+.header image.data-v-7c489a6c:nth-child(1) {
+  margin-right: 30rpx;
+}
+.swiper.data-v-7c489a6c {
+  height: 426rpx;
+}
+.content.data-v-7c489a6c {
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #999;
+  min-height: 1vh;
+  max-height: calc(100vh - 100rpx - 426rpx - 250rpx);
+}
+.content .wrapper.data-v-7c489a6c {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 30rpx 30rpx 20rpx;
+}
+.content .title.data-v-7c489a6c {
+  font-size: 36rpx;
+  color: #343434;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+.content .labels.data-v-7c489a6c {
+  display: flex;
+  font-size: 20rpx;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+.content .labels .label.data-v-7c489a6c {
+  max-width: 40%;
+  padding: 6rpx 10rpx;
+  margin-right: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.content .materials.data-v-7c489a6c {
+  width: 80%;
+  margin-bottom: 20rpx;
+}
+.content .materials .group-name.data-v-7c489a6c {
+  padding: 10rpx 0;
+}
+.content .materials .values.data-v-7c489a6c {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.content .materials .values .value.data-v-7c489a6c {
+  background-color: #f5f5f7;
+  color: 26rpx;
+  padding: 10rpx 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+}
+.content .materials .values .value.selected.data-v-7c489a6c {
+  background-color: #DBA871;
+  color: #ffffff;
+}
+.bottom.data-v-7c489a6c {
+  padding: 20rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1rpx solid rgba(200, 199, 204, 0.3);
+  background-color: #ffffff;
+  position: relative;
+  z-index: 11;
+}
+.bottom .price-and-materials.data-v-7c489a6c {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-right: 10rpx;
+}
+.bottom .price-and-materials .price.data-v-7c489a6c {
+  color: #DBA871;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.bottom .price-and-materials .materials.data-v-7c489a6c {
+  font-size: 24rpx;
+  color: #999;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.bottom .add-cart-btn.data-v-7c489a6c {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  border-radius: 6rpx;
+}
+

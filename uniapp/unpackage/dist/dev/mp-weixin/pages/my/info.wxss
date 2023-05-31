@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/**
+ * 这里是app内置的常用样式变量
+ *
+ * app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.brand.data-v-1318ea48 {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0;
+  margin-bottom: 20rpx;
+}
+.brand .avatar.data-v-1318ea48 {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100%;
+  margin-bottom: 30rpx;
+}
+.brand .username.data-v-1318ea48 {
+  color: 28rpx;
+  font-weight: bold;
+}
+.user-form .form-item.data-v-1318ea48 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.user-form .form-item .label.data-v-1318ea48 {
+  width: 160rpx;
+}
+.user-form .form-item input.data-v-1318ea48 {
+  flex: 1;
+}
+.user-form .form-item .radio.data-v-1318ea48 {
+  display: flex;
+  margin-right: 50rpx;
+}
+.user-form .form-item .radio image.data-v-1318ea48 {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.save-btn.data-v-1318ea48 {
+  padding: 0 30rpx;
+  margin-top: 60rpx;
+}
+.save-btn button.data-v-1318ea48 {
+  width: 100%;
+  font-size: 36rpx;
+}
+.telphone-modal .header.data-v-1318ea48 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+}
+.telphone-modal .header .close-icon.data-v-1318ea48 {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  right: 0;
+}
+.telphone-modal .tips.data-v-1318ea48 {
+  color: #666;
+  line-height: 1.2rem;
+  margin-bottom: 50rpx;
+}
+.telphone-modal .telphone-form.data-v-1318ea48 {
+  font-size: 26rpx;
+}
+.telphone-modal .telphone-form .telphone-input.data-v-1318ea48 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.telphone-modal .telphone-form .telphone-input .prefix.data-v-1318ea48 {
+  color: #DBA871;
+  display: flex;
+  align-items: center;
+  padding-right: 20rpx;
+  position: relative;
+  margin-right: 10rpx;
+}
+.telphone-modal .telphone-form .telphone-input .prefix.data-v-1318ea48::after {
+  content: " ";
+  position: absolute;
+  width: 4rpx;
+  background-color: #c8c7cc;
+}
+.telphone-modal .telphone-form .telphone-input input.data-v-1318ea48 {
+  flex: 1;
+}
+.telphone-modal .telphone-form .verfiycode-input.data-v-1318ea48 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.telphone-modal .telphone-form .verfiycode-input .countdown.data-v-1318ea48 {
+  font-size: 26rpx;
+}
+.telphone-modal .footer.data-v-1318ea48 {
+  margin-top: 30rpx;
+}
+.telphone-modal .footer button.data-v-1318ea48 {
+  font-size: 32rpx;
+}
+

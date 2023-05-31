@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "🍔蟹堡王😋",
+  "disableScroll": true,
+  "usingComponents": {
+    "actions": "/pages/index/components/actions/actions",
+    "cart-bar": "/pages/index/components/cartbar/cartbar",
+    "product-modal": "/pages/index/components/product-modal/product-modal",
+    "cart-popup": "/pages/index/components/cart-popup/cart-popup"
+  }
+}

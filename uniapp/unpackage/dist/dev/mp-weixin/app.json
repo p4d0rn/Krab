@@ -1,0 +1,78 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/order/order",
+    "pages/my/my",
+    "pages/integrals/mall",
+    "pages/integrals/detail",
+    "pages/index/index",
+    "pages/my/info",
+    "pages/addresses/addresses",
+    "pages/addresses/add",
+    "pages/pay/pay",
+    "pages/order/detail",
+    "pages/pay/remark"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FDFDFD"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#343434",
+    "borderStyle": "white",
+    "backgroundColor": "#F7F7F7",
+    "fontSize": "16px",
+    "iconWidth": "30px",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/images/tabbar/home.png",
+        "selectedIconPath": "static/images/tabbar/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/tabbar/index.png",
+        "selectedIconPath": "static/images/tabbar/index_selected.png",
+        "text": "点单"
+      },
+      {
+        "pagePath": "pages/integrals/mall",
+        "iconPath": "static/images/tabbar/mart.png",
+        "selectedIconPath": "static/images/tabbar/mart_selected.png",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "iconPath": "static/images/tabbar/order.png",
+        "selectedIconPath": "static/images/tabbar/order_selected.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/images/tabbar/my.png",
+        "selectedIconPath": "static/images/tabbar/my_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseAddress",
+    "chooseLocation",
+    "choosePoi",
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "startLocationUpdate"
+  ],
+  "usingComponents": {}
+}

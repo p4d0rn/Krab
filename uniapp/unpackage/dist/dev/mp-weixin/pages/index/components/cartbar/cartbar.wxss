@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/**
+ * 这里是app内置的常用样式变量
+ *
+ * app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.left.data-v-b6227998 {
+  display: flex;
+  align-items: center;
+}
+.left .detail-action.data-v-b6227998 {
+  height: 100%;
+  border-radius: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 10rpx 10rpx 0 rgba(200, 199, 204, 0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: -20rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+.left .detail-action .shopbag-btn.data-v-b6227998 {
+  width: 70rpx;
+  height: 70rpx;
+}
+.left .detail-action .badge.data-v-b6227998 {
+  background-color: #DBA871;
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 1rem;
+  width: 1rem;
+  text-align: center;
+  border-radius: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.left .price.data-v-b6227998 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #343434;
+}
+.right.data-v-b6227998 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 70rpx;
+  border-radius: 0 !important;
+  font-size: 36rpx;
+}
+

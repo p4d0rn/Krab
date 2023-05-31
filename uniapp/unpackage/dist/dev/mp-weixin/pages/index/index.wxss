@@ -1,0 +1,296 @@
+@charset "UTF-8";
+/**
+ * 这里是app内置的常用样式变量
+ *
+ * app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  z-index: 10;
+}
+.header .search-box {
+  height: 100rpx;
+  padding: 20rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header .search-box .search-input {
+  height: 60rpx;
+  width: 100%;
+  background-color: #f7f7f7;
+  font-size: 26rpx;
+  border-radius: 50rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header .search-box .search-input .search-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.header .center {
+  height: 130rpx;
+  padding: 10rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+.header .center .store {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .center .store .title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  color: #343434;
+  font-weight: bold;
+  overflow: hidden;
+}
+.header .center .store .title .address {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.header .center .store .title .left-icon {
+  flex-shrink: 0;
+  width: 30rpx;
+  height: 30rpx;
+  margin: 10rpx;
+}
+.header .center .store .title .right-icon {
+  flex-shrink: 0;
+  width: 40rpx;
+  height: 40rpx;
+}
+.header .center .store .buttons {
+  display: flex;
+  align-items: stretch;
+  background-color: #f6f6f6;
+  border-radius: 50rem !important;
+  padding: 4rpx;
+  border: 2rpx solid #eaeaea;
+}
+.header .center .store .buttons .button {
+  height: 100%;
+  width: 50%;
+  border-radius: 50rem !important;
+  border: 0 !important;
+  font-size: 24rpx !important;
+  line-height: 2.4 !important;
+}
+.header .center .store .buttons .button.active {
+  background-color: #343434;
+  color: #ffffff !important;
+  transition: all 0.3s;
+}
+.header .center .location {
+  font-size: 26rpx;
+  color: #999;
+}
+.header .notices {
+  height: 60rpx;
+  display: flex;
+  align-items: stretch;
+  padding: 10rpx 40rpx;
+  font-size: 24rpx;
+  color: #999;
+  box-shadow: 0 20rpx 20rpx -20rpx rgba(51, 51, 51, 0.1);
+}
+.header .notices .swiper {
+  height: 100%;
+  flex: 1;
+}
+.header .notices .swiper .swiper-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}
+.header .notices .swiper .swiper-item .image {
+  width: 30rpx;
+  height: 30rpx;
+  flex-shrink: 0;
+  margin-right: 10rpx;
+}
+.header .notices .swiper .swiper-item .content {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.header .notices .more {
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.header .notices .more .down-icon {
+  margin-left: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+.menu-bar {
+  width: 170rpx;
+  background-color: #f6f6f6;
+}
+.menu-bar .wrapper {
+  height: auto;
+}
+.menu-bar .wrapper .menu-item {
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26rpx;
+  color: #999;
+  overflow: hidden;
+}
+.menu-bar .wrapper .menu-item:nth-last-child(1) {
+  margin-bottom: 100rpx;
+}
+.menu-bar .wrapper .menu-item .image {
+  width: 50rpx;
+  height: 50rpx;
+}
+.menu-bar .wrapper .menu-item .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu-bar .wrapper .menu-item.active {
+  background-color: #ffffff;
+  color: #343434;
+  font-weight: 500 !important;
+  border-left: 7rpx solid #DBA871;
+}
+.product-section {
+  flex: 1;
+}
+.product-section .wrapper {
+  padding: 0 20rpx;
+  padding-bottom: 130rpx;
+}
+.product-section .ads1,
+.product-section .ads2 {
+  height: 300rpx;
+}
+.product-section .ads1 {
+  margin-bottom: 20rpx;
+}
+.product-section .products-list .category-name {
+  padding: 30rpx 0;
+  font-size: 26rpx;
+  color: #999;
+}
+.product-section .products-list .products {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+}
+.product-section .products-list .product {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+.product-section .products-list .product .image {
+  width: 180rpx;
+  height: 135rpx;
+  flex-shrink: 0;
+}
+.product-section .products-list .product .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.product-section .products-list .product .content .name {
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+.product-section .products-list .product .content .labels {
+  display: flex;
+  font-size: 20rpx;
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+.product-section .products-list .product .content .labels .label {
+  max-width: 40%;
+  padding: 6rpx 10rpx;
+  margin-right: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product-section .products-list .product .content .description {
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: #999;
+  font-size: 24rpx;
+}
+.product-section .products-list .product .content .price {
+  font-size: 36rpx;
+  color: 26rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-actions {
+  display: flex;
+  align-items: center;
+}
+.cart-actions .add-btn,
+.cart-actions .minus-btn {
+  width: 50rpx;
+  height: 50rpx;
+}
+.cart-actions .number {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36rpx;
+}
+

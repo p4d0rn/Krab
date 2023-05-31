@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../plugins/element-ui/index.css"/>
+    <link rel="stylesheet" href="../../styles/common.css"/>
+    <link rel="stylesheet" href="../../styles/page.css"/>
+    <style>
+        .selectInput {
+            position: relative;
+            width: 100%;
+            min-width: 100px;
+        }
+
+        .selectInput .flavorSelect {
+            position: absolute;
+            width: 100%;
+            padding: 0 10px;
+            border-radius: 3px;
+            border: solid 1px #FF903D;
+            line-height: 30px;
+            text-align: center;
+            background: #fff;
+            top: 50px;
+            z-index: 99;
+        }
+
+        .selectInput .flavorSelect .items {
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            line-height: 35px;
+            border-bottom: solid 1px #f4f4f4;
+            color: #666;
+        }
+
+        .selectInput .flavorSelect .none {
+            font-size: 14px;
+        }
+
+        #food-add-app .uploadImg .el-form-item__label::before {
+            content: '*';
+            color: #F56C6C;
+            margin-right: 4px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="addBrand-container" id="food-add-app">
+    <div class="container">
+        <el-form
+                ref="ruleForm"
+                :model="ruleForm"
+                :rules="rules"
+                :inline="true"
+                label-width="180px"
+                class="demo-ruleForm"
+        >
+            <div>
+                <el-form-item
+                        label="菜品名称:"
+                        prop="dishName"
+                >
+                    <el-input
+                            v-model="ruleForm.dishName"
+                            placeholder="请填写菜品名称"
+                            maxlength="20"
+                    />
+                </el-form-item>
+            </div>
+            <div>
+                <el-form-item
+                        label="菜品价格:"
+                        prop="dishPrice"
+                >
+                    <el-input
+                            v-model="ruleForm.dishPrice"
+                            placeholder="请设置菜品价格"
+                    />
+                </el-form-item>
+            </div>
+            <el-form-item label="菜品分类:" prop="cateId">
+                <el-select v-model="ruleForm.cateId" @change="$forceUpdate()">
+                    <el-option v-for="(item, index) in setCateList" :key="index" :label="item.cateName"
+                               :value="item.cateId"/>
+                </el-select>
+            </el-form-item>
+
+            <div>
+                <el-form-item
+                        label="菜品图片:"
+                        prop="region"
+                        class="uploadImg"
+                >
+                    <el-upload
+                            class="avatar-uploader"
+                            action="/common/upload"
+                            :auto-upload="autoUpload"
+                            name="imgFile"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="onChange"
+                            :headers="headers">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+            </div>
+            <div class="address">
+                <el-form-item
+                        label="菜品描述:"
+                        prop="description"
+                >
+                    <el-input
+                            v-model="ruleForm.description"
+                            type="textarea"
+                            :rows="3"
+                            placeholder="菜品描述，最长200字"
+                            maxlength="200"
+                    />
+                </el-form-item>
+            </div>
+            <div class="subBox address">
+                <el-form-item>
+                    <el-button @click="goBack()">
+                        取消
+                    </el-button>
+                    <el-button
+                            type="primary"
+                            @click="submitForm('ruleForm')"
+                    >
+                        保存
+                    </el-button>
+                    <el-button
+                            v-if="actionType == 'add'"
+                            type="primary"
+                            class="continue"
+                            @click="submitForm('ruleForm','goAnd')"
+                    >
+                        保存并继续添加菜品
+                    </el-button>
+                </el-form-item>
+            </div>
+        </el-form>
+    </div>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../../plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../../plugins/element-ui/index.js"></script>
+<!-- 引入axios -->
+<script src="../../plugins/axios/axios.min.js"></script>
+<script src="../../js/request.js"></script>
+<script src="../../js/validate.js"></script>
+<script src="../../js/index.js"></script>
+<script src="../../api/food.js"></script>
+<script>
+    new Vue({
+        el: '#food-add-app',
+        data() {
+            return {
+                autoUpload: true,//自动上传
+                imageUrl: null,//模型数据，用于上传图片完成后图片预览
+                id: '',
+                actionType: '',
+                setCateList: [],
+                ruleForm: {
+                    'dishName': '',
+                    'dishPrice': '',
+                    'dishImg': '',
+                    'cateName': '',
+                    'description': '',
+                },
+            }
+        },
+        computed: {
+            rules() {
+                return {
+                    'dishName': [
+                        {'required': true, 'message': '请填写菜品名称', 'trigger': 'blur'}
+                    ],
+                    'dishPrice': [
+                        {
+                            'required': true,
+                            // 'message': '请填写菜品价格',
+                            validator: (rules, value, callback) => {
+                                if (!value) {
+                                    callback(new Error('请填写菜品价格'))
+                                } else {
+                                    const reg = /^\d+(\.\d{0,2})?$/
+                                    if (reg.test(value)) {
+                                        if (value < 10000) {
+                                            callback()
+                                        } else {
+                                            callback(new Error('菜品价格小于10000'))
+                                        }
+                                    } else {
+                                        callback(new Error('菜品价格格式只能为数字,且最多保留两位小数'))
+                                    }
+                                }
+                            },
+                            'trigger': 'blur'
+                        }
+                    ],
+                }
+            },
+            headers() {
+                return {
+                    Authorization: localStorage.getItem('token')
+                }
+            }
+        },
+        created() {
+            this.getCateList()
+            this.id = requestUrlParam('id')
+            this.actionType = this.id ? 'edit' : 'add'
+            if (this.id) {
+                this.init()
+            }
+        },
+        mounted() {
+        },
+        methods: {
+            async init() {
+                queryDishById(this.id).then(res => {
+                    if (String(res.code) === '1') {
+                        this.ruleForm = {...res.data}
+                        this.imageUrl = this.ruleForm.dishImg
+                    } else {
+                        this.$message.error(res.msg || '操作失败')
+                    }
+                })
+            },
+            // 获取分类
+            getCateList() {
+                getCategoryList({page: 1, pageSize: 1000}).then((res) => {
+                    if (res.code === 1) {
+                        this.setCateList = res.data.content
+                    } else {
+                        this.$message.error(res.msg || '操作失败')
+                    }
+                })
+            },
+            submitForm(formName, st) {
+                this.$refs[formName].validate((valid) => {
+                    // 验证表单
+                    if (valid) {
+                        let params = {...this.ruleForm}
+                        params.status = this.ruleForm ? 1 : 0
+                        if (this.actionType == 'add') {
+                            if (!this.imageUrl) {
+                                this.$message.error('请上传菜品图片')
+                                return
+                            }
+                            params.dishImg = this.imageUrl
+                            addDish(params).then(res => {
+                                if (res.code === 1) {
+                                    this.$message.success('菜品添加成功！')
+                                    if (!st) {
+                                        this.goBack()
+                                    } else {
+                                        this.imageUrl = ''
+                                        this.ruleForm = {
+                                            'dishName': '',
+                                            'dishPrice': '',
+                                            'dishImg': '',
+                                            'description': '',
+                                        }
+                                    }
+                                } else {
+                                    this.$message.error(res.msg || '操作失败')
+                                }
+                            }).catch(err => {
+                                this.$message.error('请求出错了：' + err)
+                            })
+                        } else {
+                            if (this.imageUrl) {
+                                params.dishImg = this.imageUrl
+                            }
+                            params.dishId = this.id
+                            editDish(params).then(res => {
+                                if (res.code === 1) {
+                                    this.$message.success('菜品修改成功！')
+                                    this.goBack()
+                                } else {
+                                    this.$message.error(res.msg || '操作失败')
+                                }
+                            }).catch(err => {
+                                this.$message.error('请求出错了：' + err)
+                            })
+                        }
+                    } else {
+                        return false
+                    }
+                })
+            },
+            handleAvatarSuccess(response, file, fileList) {
+                // 拼接down接口预览
+                if (response.code === 0 && response.msg === '未登录') {
+                    window.top.location.href = '/backend/page/login/login.html'
+                } else {
+                    // 采用七牛云上传
+                    this.imageUrl = "http://rv74erb7l.bkt.clouddn.com/" + response.data;
+                    this.ruleForm.image = response.data
+                }
+            },
+            onChange(file) {
+                if (file) {
+                    const suffix = file.name.split('.')[1]
+                    const size = file.size / 1024 / 1024 < 2
+                    if (['png', 'jpeg', 'jpg'].indexOf(suffix) < 0) {
+                        this.$message.error('上传图片只支持 png、jpeg、jpg 格式！')
+                        this.$refs.upload.clearFiles()
+                        return false
+                    }
+                    if (!size) {
+                        this.$message.error('上传文件大小不能超过 2MB!')
+                        return false
+                    }
+                    return file
+                }
+            },
+            goBack() {
+                window.parent.menuHandle({
+                    id: '3',
+                    url: '/backend/page/dish/list.html',
+                    name: '菜品管理'
+                }, false)
+            }
+        }
+    })
+</script>
+</body>
+</html>

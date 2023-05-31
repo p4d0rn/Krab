@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+</head>
+<body>
+<h1>hello word!!!</h1>
+<p>Login Page</p>
+<form method="post" class="login_form">
+    用户：<input type="text" name="name" class="name"><br/><br/>
+    密码：<input type="text" name="password" class="pwd"><br/><br/>
+    <div class="captcha"></div>
+    验证码: <input type="text" name="code" class="code"><br/>
+    <div class="randId"></div>
+</form>
+<button class="submit">登录</button>
+</body>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url:"/captcha",
+            success:function(result){
+                console.log(result.data.randID);
+                $(`<input type="text" hidden="true" value="${result.data.randID}" class="key"><br/><br/>`).insertAfter($(".randId"));
+                $(`<img src="${result.data.base64Img}"><br/>`).insertAfter($(".captcha"));
+            }
+        });
+        $(".submit").click(function(){
+            $.ajax({
+                url: '/user/login',
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "name": $(".name").val(),
+                    "password": $(".pwd").val(),
+                    "code": $(".code").val(),
+                    "randId": $(".key").val()
+                }),
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        });
+    });
+</script>
+</html>

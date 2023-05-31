@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加地址",
+  "usingComponents": {
+    "list-cell": "/components/list-cell/list-cell"
+  }
+}

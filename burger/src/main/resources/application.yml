@@ -1,0 +1,49 @@
+krab:
+  jwt:
+    header: Authorization
+    expire: 604800 # 7天
+    secret: s3cr3t_k3y__y0v_c4nNot_know
+
+server:
+  port: 8088
+
+qiniu:
+  accessKey: ak
+  secretKey: sk
+  # 对象储存
+  bucket: krab # 空间名称
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+  #  main:
+  #    allow-circular-references: true
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/krab?allowMultiQueries=true
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  sql:
+    init:
+      mode: always
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  scripting-language-driver:
+    freemarker:
+      template-file:
+        base-dir: mappers/
+      path-provider:
+        includes-package-path: false
+        separate-directory-per-mapper: false
+  check-config-location: false
+
+
