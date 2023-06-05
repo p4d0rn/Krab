@@ -85,7 +85,6 @@ public class LoginController {
 
     @PostMapping("/user/login")
     public Result login(@RequestParam("code") String code) throws IOException {
-        System.out.println("code = " + code);
         String loginUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + Const.appId +
                 "&secret=" + Const.secret + "&js_code=" + code + "&grant_type=authorization_code";
         CloseableHttpClient client = null;
@@ -102,7 +101,6 @@ public class LoginController {
 
         response.close();
         client.close();
-        System.out.println("微信返回的结果" + result);
         // 对返回的结果进行解析
         JSONObject json = JSONObject.parseObject(result);
         String openid = json.getString("openid");
@@ -116,17 +114,17 @@ public class LoginController {
             return Result.error("登录失败,openID错误");
         } else {
             String token = jwtUtils.generateToken(MapUtil.builder(new HashMap<String, Object>()).put("openId", openid).map());
-            // 判断是否为首次登陆
+            // 判断是否为首次登陆，是则进行注册
             if (user == null) {
                 userService.register(openid);
                 user = new User();
                 user.setUserId(openid);
                 user.setUserName("微信用户");
-                user.setPoints(0);
+                user.setPoints(0); // 初始化积分0
             }
             return Result.success(MapUtil.builder(new HashMap<String, Object>())
                     .put("user", user)
-                    .put("token", token)
+                    .put("token", token) // 返回JWT
                     .map(), "登录成功");
         }
     }

@@ -6,11 +6,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RemarkTest {
+public class RemarkTask {
     private final MenuMapper menuMapper;
 
     @Autowired(required = false)
-    public RemarkTest(MenuMapper menuMapper) {
+    public RemarkTask(MenuMapper menuMapper) {
         this.menuMapper = menuMapper;
     }
 
